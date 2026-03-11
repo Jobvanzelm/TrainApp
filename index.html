@@ -3,6 +3,75 @@
 <body>
 
 <h1>Test</h1>
+<div id="trains-select-container">
+    <select id="trains" selected="None" class="yeah">        
+        <option>112012 | Boxcar</option>
+        <option>11258 | Reefer</option>
+        <option>HERB-1 | Reefer</option>
+        <option>24782 | Boxcar</option>
+        <option>DODX | DCF</option>
+    </select>    
 
+    <button onclick="addTrainSelect()">Add Train</button>
+</div>
+
+<button onclick="generate()">Generate</button>
+
+<table id="result-table">
+    <thead>
+        <td>yes</td>
+        <td>yes</td>
+    </thead>
+    <tbody id="result-table-body">
+        <tr></tr>
+    </tbody>
+</table>
 </body>
 </html>
+
+<script>
+    function addTrainSelect() {
+        // what if: pass ID as a parameter, then get THAT specific select. then delete the option that that select has selected.
+        const trainSelect = document.getElementById('trains')
+        let newTrainSelect = trainSelect.cloneNode(true)
+        newTrainSelect.id = 'trainselectclone'
+        trainSelect.after(newTrainSelect)
+    }
+
+    function generate() {
+        
+        const selects = document.getElementsByClassName('yeah')
+        let boxcarTrains = []
+        let reeferTrains = []
+        const boxcarDestinations = []
+        const reeferDestinations = []
+        let trainNames = ''
+        let specialCase = false
+        // There might be a more elegant way to split the trains but I don't care. If I'm gonna do fancy stuff I'll just build it in typescript
+        for (const select of selects) {
+            if (select.value.endsWith('Boxcar')) {
+                boxcarTrains.push(select.value)
+            }
+            else if (select.value.endsWith('Reefer')) {
+                reefer.push(select.value)
+            }
+            else {
+                specialCase = true
+            }
+        }
+        if (specialCase) {
+            const row = document.createElement("td")
+            row.innerText = "DODX | DCF"
+            document.getElementById("result-table-body").appendChild(row);
+        }
+
+        // check for the special case, create table row if present, then remove
+        // sort boxcar destinations
+        // sort reefer destinations
+        // for both: loop over trains and create a table row with destination with same index
+    }
+
+    // TODO: import proper train names
+    // TODO: compute randomized result
+    // TODO: present result via table
+</script>
