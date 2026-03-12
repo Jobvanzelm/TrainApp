@@ -2,7 +2,7 @@
 <html>
 <body>
 
-<h1>Test</h1>
+<h1>Train App v0.0.1</h1>
 <div id="trains-select-container">
     <select id="trains" selected="None" class="yeah">        
         <option>112012 | Boxcar</option>
@@ -19,59 +19,117 @@
 
 <table id="result-table">
     <thead>
-        <td>yes</td>
-        <td>yes</td>
+        <tr>            
+            <th>Car</th>
+            <th>Destination</th>
+        </tr>
     </thead>
     <tbody id="result-table-body">
-        <tr></tr>
     </tbody>
 </table>
 </body>
 </html>
 
 <script>
+    // maybe an init function that creates 7 selects... hmmmm
     function addTrainSelect() {
+        // hoi Oscar
+        // TODO: add select at the end and not front
         // what if: pass ID as a parameter, then get THAT specific select. then delete the option that that select has selected.
-        const trainSelect = document.getElementById('trains')
+        let trainSelect = document.getElementById('trains')
         let newTrainSelect = trainSelect.cloneNode(true)
         newTrainSelect.id = 'trainselectclone'
         trainSelect.after(newTrainSelect)
     }
 
     function generate() {
-        
-        const selects = document.getElementsByClassName('yeah')
+        // clear existing table rows
+         document.querySelectorAll('.lmao').forEach(element => element.remove())
+         
+        console.log(document.getElementsByClassName('lmao').length)
+        let selects = document.getElementsByClassName('yeah')
         let boxcarTrains = []
         let reeferTrains = []
-        const boxcarDestinations = []
-        const reeferDestinations = []
+        var boxcarDestinations = [1,2,3,4,5,6,7,9]
+        var reeferDestinations = [1,2,3,4,5]
         let trainNames = ''
         let specialCase = false
+        const tableBody = document.getElementById("result-table-body")
         // There might be a more elegant way to split the trains but I don't care. If I'm gonna do fancy stuff I'll just build it in typescript
         for (const select of selects) {
             if (select.value.endsWith('Boxcar')) {
                 boxcarTrains.push(select.value)
             }
             else if (select.value.endsWith('Reefer')) {
-                reefer.push(select.value)
+                reeferTrains.push(select.value)
             }
             else {
+                console.log('WAT')
                 specialCase = true
             }
         }
+        // certain cars have a dedicated destination, make sure to remove it from the available destinations after this
         if (specialCase) {
-            const row = document.createElement("td")
-            row.innerText = "DODX | DCF"
-            document.getElementById("result-table-body").appendChild(row);
+            const row = tableBody.insertRow()
+            row.classList.add('lmao')
+            const trainCell = row.insertCell()
+            const destinationCell = row.insertCell()
+
+            trainCell.textContent = 'DODX | DCF'
+            destinationCell.textContent = 8
+        }
+        else {
+            // add 8 to boxcar trains so it's available for other cars
+            // Yes I figured it'd be easier to make the spot available AFTER we decide we don't need it for the special case instead of removing it later because I am lazy
+            // except now if you regenerate the 8 is still there oops
+            boxcarDestinations.push(8)
         }
 
-        // check for the special case, create table row if present, then remove
+        // Thank you w3schools https://www.w3schools.com/js/js_array_sort.asp
+        boxcarDestinations.sort(function(){return 0.5 - Math.random()})
+        reeferDestinations.sort(function(){return 0.5 - Math.random()})
+
+        for (var i = 0; i < boxcarTrains.length; i++) {            
+            const row = tableBody.insertRow()
+            row.classList.add('lmao')
+            const trainCell = row.insertCell()
+            const destinationCell = row.insertCell()
+
+            trainCell.textContent = boxcarTrains[i]
+            destinationCell.textContent = boxcarDestinations[i]         
+        }
+
+        for (var i = 0; i < reeferTrains.length; i++) {            
+            var row = tableBody.insertRow()
+            row.classList.add('lmao')
+            var trainCell = row.insertCell()
+            var destinationCell = row.insertCell()
+
+            trainCell.textContent = reeferTrains[i]
+            destinationCell.textContent = reeferDestinations[i]          
+        }
+        
+
         // sort boxcar destinations
         // sort reefer destinations
-        // for both: loop over trains and create a table row with destination with same index
     }
 
     // TODO: import proper train names
     // TODO: compute randomized result
     // TODO: present result via table
 </script>
+
+<style>
+    td, th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #8f8f8f;
+  color: white;
+}
+</style>
