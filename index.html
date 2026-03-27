@@ -8,29 +8,29 @@
 <h1>Train App v0.0.1</h1>
 <div id="trains-select-container">
     <select id="trains" selected="None" class="yeah">        
-        <option>167990 | Boxcar</option>
-        <option>77140 | Boxcar</option>
-        <option>92101 | Boxcar</option>
-        <option>Herb-1 | Boxcar</option>
-        <option>1237 | Boxcar</option>
-        <option>24616 | Boxcar</option>
-        <option>24782 | Boxcar</option>
-        <option>112011 | Boxcar</option>
-        <option>112018 | Boxcar</option>
-        <option>112025 | Boxcar</option>
-        <option>112027 | Boxcar</option>
-        <option>1999 | Boxcar</option>
-        <option>77409 | Boxcar</option>
+        <option>167990 | NYC | Boxcar</option>
+        <option>77140 | NYC| Boxcar</option>
+        <option>92101 | NYC | Boxcar</option>
+        <option>Herb-1 | Herbie | Boxcar</option>
+        <option>1237 | MNS | Boxcar</option>
+        <option>24616 | NP | Boxcar</option>
+        <option>24782 | NP | Boxcar</option>
+        <option>112011 | PRR | Boxcar</option>
+        <option>112018 | PRR | Boxcar</option>
+        <option>112025 | PRR | Boxcar</option>
+        <option>112027 | PRR | Boxcar</option>
+        <option>1999 | Smokey Bear | Boxcar</option>
+        <option>77409 | ACL | Flatcar</option>
         <option>454764 | Reefer</option>
-        <option>1717 | Reefer</option>
-        <option>1728 | Reefer</option>
-        <option>1739 | Reefer</option>
-        <option>1740 | Reefer</option>
-        <option>156 | Reefer</option>
-        <option>11258 | Reefer</option>
-        <option>22602 | Reefer</option>
-        <option>5100 | Reefer</option>
-        <option>39829 | DCFC</option>
+        <option>1717 | PFE | Reefer</option>
+        <option>1728 | SF | Reefer</option>
+        <option>1739 | SF | Reefer</option>
+        <option>1740 | SF | Reefer</option>
+        <option>156 | NP | Reefer</option>
+        <option>11258 | NYC MDT | Reefer</option>
+        <option>22602 | NYC MDT | Reefer</option>
+        <option>5100 | Tivoli Beer | Reefer</option>
+        <option>39829 | DODX | DCFC</option>
     </select>
 
     <button onclick="addTrainSelect()">Add Train</button>
@@ -88,7 +88,7 @@
         const tableBody = document.getElementById("result-table-body")
         // There might be a more elegant way to split the trains but I don't care. If I'm gonna do fancy stuff I'll just build it in typescript
         for (const select of selects) {
-            if (select.value.endsWith('Boxcar')) {
+            if (select.value.endsWith('Boxcar') || select.value.endsWith('Flatcar')) {
                 boxcarTrains.push(select.value)
             }
             else if (select.value.endsWith('Reefer')) {
