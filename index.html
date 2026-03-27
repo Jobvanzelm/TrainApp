@@ -5,7 +5,7 @@
 </head>
 <body>
 
-<h1>Train App v0.0.1</h1>
+<h1>Train App v0.0.2</h1>
 <div id="trains-select-container">
     <select id="trains" selected="None" class="yeah">        
         <option>167990 | NYC | Boxcar</option>
@@ -77,12 +77,16 @@
         // clear existing table rows
          document.querySelectorAll('.lmao').forEach(element => element.remove())
          
-        console.log(document.getElementsByClassName('lmao').length)
         let selects = document.getElementsByClassName('yeah')
         let boxcarTrains = []
         let reeferTrains = []
+
         var boxcarDestinations = [1,2,3,4,5,6,7,9]
         var reeferDestinations = [1,2,3,4,5]
+
+        let boxcarTrainsWithDestinations = []
+        let reeferTrainsWithDestinations = []
+
         let trainNames = ''
         let specialCase = false
         const tableBody = document.getElementById("result-table-body")
@@ -101,13 +105,10 @@
         }
         // certain cars have a dedicated destination, make sure to remove it from the available destinations after this
         if (specialCase) {
-            const row = tableBody.insertRow()
-            row.classList.add('lmao')
-            const trainCell = row.insertCell()
-            const destinationCell = row.insertCell()
-
-            trainCell.textContent = '39829 | DCFC'
-            destinationCell.textContent = 8
+            boxcarTrainsWithDestinations.push({
+                "train": '39829 | DODX | DCFC',
+                "destination": 8
+            })
         }
         else {
             // add 8 to boxcar trains so it's available for other cars
@@ -120,34 +121,49 @@
         boxcarDestinations.sort(function(){return 0.5 - Math.random()})
         reeferDestinations.sort(function(){return 0.5 - Math.random()})
 
-        for (var i = 0; i < boxcarTrains.length; i++) {            
-            const row = tableBody.insertRow()
-            row.classList.add('lmao')
-            const trainCell = row.insertCell()
-            const destinationCell = row.insertCell()
-
-            trainCell.textContent = boxcarTrains[i]
-            destinationCell.textContent = boxcarDestinations[i]         
+        // create an object for each reefer car
+        for (var i = 0; i < reeferTrains.length; i++) {       
+            reeferTrainsWithDestinations.push({
+                "train": reeferTrains[i],
+                "destination": reeferDestinations[i]
+            })
         }
 
-        for (var i = 0; i < reeferTrains.length; i++) {            
+        // sort by destination
+        reeferTrainsWithDestinations.sort(function(a, b) {return a.destination - b.destination})
+
+        // add to table
+        for (const reeferTrainsWithDestination of reeferTrainsWithDestinations) {            
             var row = tableBody.insertRow()
             row.classList.add('lmao')
             var trainCell = row.insertCell()
             var destinationCell = row.insertCell()
 
-            trainCell.textContent = reeferTrains[i]
-            destinationCell.textContent = reeferDestinations[i]          
+            trainCell.textContent = reeferTrainsWithDestination.train
+            destinationCell.textContent = reeferTrainsWithDestination.destination
         }
-        
 
-        // sort boxcar destinations
-        // sort reefer destinations
+        for (var i = 0; i < boxcarTrains.length; i++) {       
+            boxcarTrainsWithDestinations.push({
+                "train": boxcarTrains[i],
+                "destination": boxcarDestinations[i]
+            })
+        }
+
+        // sort by destination
+        boxcarTrainsWithDestinations.sort(function(a, b) {return a.destination - b.destination})
+
+        for (const boxcarTrainsWithDestination of boxcarTrainsWithDestinations) {            
+            var row = tableBody.insertRow()
+            row.classList.add('lmao')
+            var trainCell = row.insertCell()
+            var destinationCell = row.insertCell()
+
+            trainCell.textContent = boxcarTrainsWithDestination.train
+            destinationCell.textContent = boxcarTrainsWithDestination.destination
+        }
     }
 
-    // TODO: import proper train names
-    // TODO: compute randomized result
-    // TODO: present result via table
 </script>
 
 <style>
