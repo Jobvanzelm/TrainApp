@@ -52,6 +52,7 @@
 </html>
 
 <script>    
+// I should have made this object oriented. I could still do that I guess. hmmm....
     $(document).ready(function() {
         trainCount = 6
         for (var i = 0; i < trainCount; i++) {
@@ -61,8 +62,7 @@
         let trainCounter = document.getElementById('train-counter')
         trainCounter.textContent = `${trainCount} trains`
     });
-
-    // TODO: maybe an init function that creates 7 selects... hmmmm
+    
     function addTrainSelect() {
         // hoi Oscar
         // TODO: add select at the end and not front
@@ -139,7 +139,9 @@
             var trainCell = row.insertCell()
             var destinationCell = row.insertCell()
 
-            trainCell.textContent = reeferTrainsWithDestination.train
+            // All of this just to not have to make it object oriented
+            var splitTrain = reeferTrainsWithDestination.train.split('|').slice(0,2).join(" | ")
+            trainCell.textContent = splitTrain
             destinationCell.textContent = reeferTrainsWithDestination.destination
         }
 
@@ -159,7 +161,9 @@
             var trainCell = row.insertCell()
             var destinationCell = row.insertCell()
 
-            trainCell.textContent = boxcarTrainsWithDestination.train
+            // All of this just to not have to make it object oriented
+            var splitTrain = boxcarTrainsWithDestination.train.split('|').slice(0,2).join(" | ")
+            trainCell.textContent = splitTrain
             destinationCell.textContent = boxcarTrainsWithDestination.destination
         }
     }
