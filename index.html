@@ -1,5 +1,8 @@
 <!DOCTYPE html>
 <html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
 <body>
 
 <h1>Train App v0.0.1</h1>
@@ -48,7 +51,17 @@
 </body>
 </html>
 
-<script>
+<script>    
+    $(document).ready(function() {
+        trainCount = 6
+        for (var i = 0; i < trainCount; i++) {
+            addTrainSelect();
+        }
+        
+        let trainCounter = document.getElementById('train-counter')
+        trainCounter.textContent = `${trainCount} trains`
+    });
+
     // TODO: maybe an init function that creates 7 selects... hmmmm
     function addTrainSelect() {
         // hoi Oscar
